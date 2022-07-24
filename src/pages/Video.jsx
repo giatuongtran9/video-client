@@ -123,8 +123,6 @@ const Video = () => {
 
   const path = useLocation().pathname.split("/")[2];
 
-  console.log(path);
-
   const [channel, setChannel] = useState({});
 
   useEffect(() => {
@@ -141,6 +139,8 @@ const Video = () => {
 
     fetchData();
   }, [path]);
+
+  console.log(currentVideo);
 
   const handleLike = async () => {
     await axiosInstance.put(`/users/like/${currentVideo._id}`);
