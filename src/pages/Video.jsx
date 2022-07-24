@@ -174,7 +174,7 @@ const Video = () => {
 
             {currentUser ? (
               <ButtonsContainer>
-                {/* <ButtonContainer onClick={handleLike}>
+                <ButtonContainer onClick={handleLike}>
                   {currentVideo.likes.includes(currentUser._id) ? (
                     <ThumbUp></ThumbUp>
                   ) : (
@@ -196,7 +196,7 @@ const Video = () => {
                   <AddTaskOutlined /> Save
                 </ButtonContainer>
               </ButtonsContainer>
-            ) : ( */}
+            ) : (
               <ButtonsContainer>
                 <ButtonContainer>
                   <ThumbUpOutlined />
@@ -212,7 +212,7 @@ const Video = () => {
                   <AddTaskOutlined /> Save
                 </ButtonContainer>
               </ButtonsContainer>
-            // )}
+            )}
           </Detail>
 
           <Hr />
@@ -227,7 +227,7 @@ const Video = () => {
                 <VideoDesc>{currentVideo.desc}</VideoDesc>
               </ChannelDetail>
             </ChannelInfo>
-            {currentUser.name === channel.name ? (
+            {currentUser && currentUser.name === channel.name ? (
               <></>
             ) : (
               <Button
