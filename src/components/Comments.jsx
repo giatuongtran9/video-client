@@ -47,10 +47,12 @@ const Comments = ({ videoId }) => {
 
   return (
     <div>
-      <NewComment>
-        <Img src={currentUser.img} />
-        <Input placeholder="Add a comment" />
-      </NewComment>
+      {currentUser && (
+        <NewComment>
+          <Img src={currentUser.img} />
+          <Input placeholder="Add a comment" />
+        </NewComment>
+      )}
       {comments.map((comment) => (
         <Comment key={comment._id} comment={comment} />
       ))}
