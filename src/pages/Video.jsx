@@ -140,8 +140,6 @@ const Video = () => {
     fetchData();
   }, [path]);
 
-  console.log(currentVideo);
-
   const handleLike = async () => {
     await axiosInstance.put(`/users/like/${currentVideo._id}`);
     dispatch(like(currentUser._id));
@@ -174,29 +172,47 @@ const Video = () => {
               {currentVideo.views} views • {format(currentVideo.createdAt)}
             </Info>
 
-            <ButtonsContainer>
-              <ButtonContainer onClick={handleLike}>
-                {currentVideo.likes.includes(currentUser._id) ? (
-                  <ThumbUp></ThumbUp>
-                ) : (
+            {currentUser ? (
+              <ButtonsContainer>
+                <ButtonContainer onClick={handleLike}>
+                  {currentVideo.likes.includes(currentUser._id) ? (
+                    <ThumbUp></ThumbUp>
+                  ) : (
+                    <ThumbUpOutlined />
+                  )}{" "}
+                  {currentVideo.likes?.length}
+                </ButtonContainer>
+
+                <ButtonContainer onClick={handleDislike}>
+                  {currentVideo.dislikes.includes(currentUser._id) ? (
+                    <ThumbDown></ThumbDown>
+                  ) : (
+                    <ThumbDownAltOutlined />
+                  )}{" "}
+                  Dislike
+                </ButtonContainer>
+
+                <ButtonContainer>
+                  <AddTaskOutlined /> Save
+                </ButtonContainer>
+              </ButtonsContainer>
+            ) : (
+              <ButtonsContainer>
+                <ButtonContainer>
                   <ThumbUpOutlined />
-                )}{" "}
-                {currentVideo.likes?.length}
-              </ButtonContainer>
+                  {currentVideo.likes?.length}
+                </ButtonContainer>
 
-              <ButtonContainer onClick={handleDislike}>
-                {currentVideo.dislikes.includes(currentUser._id) ? (
-                  <ThumbDown></ThumbDown>
-                ) : (
+                <ButtonContainer>
                   <ThumbDownAltOutlined />
-                )}{" "}
-                Dislike
-              </ButtonContainer>
+                  Dislike
+                </ButtonContainer>
 
-              <ButtonContainer>
-                <AddTaskOutlined /> Save
-              </ButtonContainer>
-            </ButtonsContainer>
+                <ButtonContainer>
+                  <AddTaskOutlined /> Save
+                </ButtonContainer>
+              </ButtonsContainer>
+            )}
           </Detail>
 
           <Hr />
@@ -211,7 +227,7 @@ const Video = () => {
                 <VideoDesc>{currentVideo.desc}</VideoDesc>
               </ChannelDetail>
             </ChannelInfo>
-            {currentUser.name === channel.name ? (
+            {currentUser && currentUser.name === channel.name ? (
               <></>
             ) : (
               <Button
