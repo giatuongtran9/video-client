@@ -227,7 +227,7 @@ const Video = () => {
                 <VideoDesc>{currentVideo.desc}</VideoDesc>
               </ChannelDetail>
             </ChannelInfo>
-            {currentUser && currentUser.name === channel.name ? (
+            {!currentUser || currentUser.name === channel.name ? (
               <></>
             ) : (
               <Button
