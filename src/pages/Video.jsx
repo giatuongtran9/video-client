@@ -161,74 +161,76 @@ const Video = () => {
 
   return (
     <Container>
-      <Content>
-        <div>
-          <VideoFrame src={currentVideo.videoUrl} controls></VideoFrame>
-        </div>
+      {currentVideo && (
+        <Content>
+          <div>
+            <VideoFrame src={currentVideo.videoUrl} controls></VideoFrame>
+          </div>
 
-        <Title>{currentVideo.title}</Title>
+          <Title>{currentVideo.title}</Title>
 
-        <Detail>
-          <Info>
-            {currentVideo.views} views • {format(currentVideo.createdAt)}
-          </Info>
+          <Detail>
+            <Info>
+              {currentVideo.views} views • {format(currentVideo.createdAt)}
+            </Info>
 
-          <ButtonsContainer>
-            <ButtonContainer onClick={handleLike}>
-              {currentVideo.likes.includes(currentUser._id) ? (
-                <ThumbUp></ThumbUp>
-              ) : (
-                <ThumbUpOutlined />
-              )}{" "}
-              {currentVideo.likes?.length}
-            </ButtonContainer>
+            <ButtonsContainer>
+              <ButtonContainer onClick={handleLike}>
+                {currentVideo.likes.includes(currentUser._id) ? (
+                  <ThumbUp></ThumbUp>
+                ) : (
+                  <ThumbUpOutlined />
+                )}{" "}
+                {currentVideo.likes?.length}
+              </ButtonContainer>
 
-            <ButtonContainer onClick={handleDislike}>
-              {currentVideo.dislikes.includes(currentUser._id) ? (
-                <ThumbDown></ThumbDown>
-              ) : (
-                <ThumbDownAltOutlined />
-              )}{" "}
-              Dislike
-            </ButtonContainer>
+              <ButtonContainer onClick={handleDislike}>
+                {currentVideo.dislikes.includes(currentUser._id) ? (
+                  <ThumbDown></ThumbDown>
+                ) : (
+                  <ThumbDownAltOutlined />
+                )}{" "}
+                Dislike
+              </ButtonContainer>
 
-            <ButtonContainer>
-              <AddTaskOutlined /> Save
-            </ButtonContainer>
-          </ButtonsContainer>
-        </Detail>
+              <ButtonContainer>
+                <AddTaskOutlined /> Save
+              </ButtonContainer>
+            </ButtonsContainer>
+          </Detail>
 
-        <Hr />
+          <Hr />
 
-        <ChannelWrapper>
-          <ChannelInfo>
-            <Img src={channel.img} />
+          <ChannelWrapper>
+            <ChannelInfo>
+              <Img src={channel.img} />
 
-            <ChannelDetail>
-              <ChannelName>{channel.name}</ChannelName>
-              <ChannelSub>{channel.subscribers} subscribers</ChannelSub>
-              <VideoDesc>{currentVideo.desc}</VideoDesc>
-            </ChannelDetail>
-          </ChannelInfo>
-          {currentUser.name === channel.name ? (
-            <></>
-          ) : (
-            <Button
-              type="button"
-              buttonType={BUTTON_TYPE.subscribe}
-              onClick={handleSub}
-            >
-              {currentUser.subscribedUsers?.includes(channel._id)
-                ? "SUBSCRIBED"
-                : "SUBSCRIBE"}
-            </Button>
-          )}
-        </ChannelWrapper>
+              <ChannelDetail>
+                <ChannelName>{channel.name}</ChannelName>
+                <ChannelSub>{channel.subscribers} subscribers</ChannelSub>
+                <VideoDesc>{currentVideo.desc}</VideoDesc>
+              </ChannelDetail>
+            </ChannelInfo>
+            {currentUser.name === channel.name ? (
+              <></>
+            ) : (
+              <Button
+                type="button"
+                buttonType={BUTTON_TYPE.subscribe}
+                onClick={handleSub}
+              >
+                {currentUser.subscribedUsers?.includes(channel._id)
+                  ? "SUBSCRIBED"
+                  : "SUBSCRIBE"}
+              </Button>
+            )}
+          </ChannelWrapper>
 
-        <Hr />
+          <Hr />
 
-        <Comments videoId={currentVideo._id} />
-      </Content>
+          <Comments videoId={currentVideo._id} />
+        </Content>
+      )}
 
       <Recommendation />
     </Container>
